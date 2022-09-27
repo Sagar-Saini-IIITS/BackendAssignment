@@ -5,7 +5,8 @@ var fetchuser = require('../middleware/fetchuser');
 const { body, validationResult } = require('express-validator');
 const download = require('image-downloader');
 const resizer = require('node-image-resizer');
-
+const jsonpatch= require ('fast-json-patch');
+const {applyOperation} = require ('fast-json-patch');
 
 
 // ROUTE 1
@@ -64,6 +65,23 @@ router.post('/urltoimage', fetchuser, async (req, res) => {
     res.status(500).send("Some error occured while resizing image");
   }
 
+})
+
+
+
+// ROUTE 3
+//  Applying the json patch to the json object, and return the resulting json object.
+
+router.post('/patch',fetchuser, async (req, res) => {
+  
+  let {document,patch} =req.body;
+  try {
+document = jsonpatch.applyPatch(document, patch).newDocument;
+ res.json(document);
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("Some error occured");
+  }
 })
 
 module.exports = router
