@@ -41,7 +41,7 @@ for ex, <br> </br>
 }
 
 
-Then image is downloaded in image folder, and then resized image in saved in thumbnail folder. 
+Then image is downloaded in image folder, and then resized image is saved in thumbnail folder. 
 
 we get image address in response.
 
